@@ -31,10 +31,6 @@ Port 80 hosted a web application, and port 6274 was identified as MCPJam Inspect
 <img width="746" height="247" alt="Pasted image 20260905122753" src="https://github.com/user-attachments/assets/6d9a2b2a-c245-4b84-a1da-72a334934ab5" />
 Before proceeding, the hostname needed to be added to `/etc/hosts`:
 
-```bash
-echo "10.129.245.216 devhub.htb" >> /etc/hosts
-```
-
 Browsing to `http://10.129.245.216` revealed a page for DevHub, an internal development and analytics platform. The page displayed the following information:
 
 <img width="2556" height="1122" alt="Pasted image 20260905122912" src="https://github.com/user-attachments/assets/55f83655-85d4-4faa-8498-c0d2b25f8d2d" />
